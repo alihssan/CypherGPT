@@ -3,6 +3,8 @@ from neo4j.exceptions import CypherSyntaxError
 import openai
 from dotenv import load_dotenv
 import os
+from queries import *
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -22,8 +24,8 @@ def schema_text(node_props, rel_props, rels):
 
 
 class Neo4jGPTQuery:
-    def __init__(self, url, user, password, openai_api_key):
-        self.driver = GraphDatabase.driver(url, auth=(user, password))
+    def __init__(self, url, openai_api_key):
+        self.driver = GraphDatabase.driver(url)
         openai.api_key = openai_api_key
         # construct schema
         self.schema = self.generate_schema()
@@ -106,13 +108,10 @@ class Neo4jGPTQuery:
 if __name__ == "__main__":
     # Load credentials from environment variables
     openai_key = os.getenv("OPENAI_API_KEY")
-    neo4j_user = os.getenv("NEO4J_USER")
-    neo4j_password = os.getenv("NEO4J_PASSWORD")
+    server_url = os.getenv("NEO4j_SERVER_URL")
 
     gds_db = Neo4jGPTQuery(
-        url="bolt://18.207.187.166:7687",
-        user=neo4j_user,
-        password=neo4j_password,
+        url=f"bolt://{server_url}:7687",
         openai_api_key=openai_key,
     )
 
