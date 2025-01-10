@@ -27,7 +27,7 @@ more-itertools==10.5.0
 multidict==6.1.0
 neo4j==5.27.0
 nh3==0.2.20
-openai==0.28.0
+openai==1.59.5
 packaging==24.2
 pkginfo==1.12.0
 propcache==0.2.1
